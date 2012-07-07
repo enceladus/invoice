@@ -1,0 +1,9 @@
+$def with (invoice, form)
+
+<h2>Add to Invoice</h2>
+
+<form method="post" action="">
+	$:form.render()
+</form>
+
+<p><a href="/invoices/$:invoice.id">Done Adding</a></p>

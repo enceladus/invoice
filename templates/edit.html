@@ -1,0 +1,34 @@
+$def with (form, item, title, type, invoice_items)
+
+<h2>$:title</h2>
+$if type == 'invoice':
+	<p><a href="/invoices/$:item.id/print">Print invoice</a></p>
+
+<form method="post">
+	$:form.render()
+</form>
+
+$if invoice_items != []:
+	<table>
+		<tr>
+			<th>Description</th>
+			<th>Rate</th>
+			<th>Amount</th>
+			<th>Total</th>
+			<th>&nbsp;</th>
+		</tr>
+	$ total = 0
+	$for i in invoice_items:
+		<tr>
+			<td>$i.description</td>
+			<td>$i.rate</td>
+			<td>$i.hrs</td>
+			<td>$(i.rate * i.hrs)</td>
+			<td><a href="/item/$i.id">(edit)</a></td>
+		</tr>
+		$ total += (i.rate * i.hrs)
+	</table>
+	<p><strong>Total: $:total</strong></p>
+	
+$if type == 'invoice':
+	<p><a href="/invoices/$:item.id/add">Add more items</a></p>

@@ -1,0 +1,21 @@
+$def with (items, title, type)
+
+<nav id="options">
+	<ul>
+		$if type == 'invoice':
+			<li><a href="/invoices/new">New Invoice</a></li>
+		$elif type == 'client':
+			<li><a href="/clients/new">New Client</a></li>
+	</ul>
+</nav>
+
+<h2>$:title</h2>
+
+<ul>
+$for i in items:
+	$if type == 'invoice':
+		<li><strong><a href="/invoices/$i.id">Invoice #$i.id</a></strong> | <strong>Title:</strong> $i.project_title | <strong>Description:</strong> $i.description</li> | <strong><a href="/invoices/$i.id/del">Delete</a></strong> | <a href="/invoices/$i.id/add">Add Items</a> | <a href="/invoices/$i.id/print">Print</a>
+	$elif type == 'client':
+		<li>#$i.id | <a href="/clients/$i.id">$i.name</a>
+</ul>
+
